@@ -1,10 +1,35 @@
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
 from .models import crud
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
+def register(request):
+     if request.method == 'POST':
+          username = request.POST.get('username')
+          email = request.POST.get('email')
+          password = request.POST.get('password')
+          conf_password = request.POST.get('conf_password')
+
+          if password == conf_password:
+            user = User.objects.create_user(username=username,email=email,password=password)
+            user.save()
+            return HttpResponseRedirect('index')
+     return render (request,'register.html')
+
+def login(request):
+    if request.method =='POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            return redirect('index')
+ 
+    return render(request,'login.html')
+
 def index(request):
     data = crud.objects.all()
     return render(request,'index.html',{"datas":data})

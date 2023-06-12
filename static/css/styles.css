@@ -26,3 +26,10 @@ tr{
   .btn {
     margin-right: 5px;
   }
+
+  .main{
+text-align: center;
+vertical-align: middle;
+line-height: 90px;
+width: 10em;
+  }

@@ -7,7 +7,7 @@
           <h5 class="card-title" style="color:white;">SIMPLE CRUD OPERATION</h5>
         </div>
       </div>
-
+    {% if user.is_authenticated %}
     <div class="container entry">
     <form action="{% url 'saveData' %}" method="post">
         {% csrf_token %}
@@ -33,11 +33,6 @@
     <strong>{{message}}</strong>
   </div>
   {% endfor %}
-  <!-- {% if message %}
-  <div class="alert alert-success text-center">
-    <strong>{{message}}</strong>
-  </div>
-  {% endif %} -->
 </div>
 
 <div class="container display">
@@ -68,5 +63,5 @@
       </tbody>
     </table>
 </div>
-
+{% endif %}
 {% endblock %}
